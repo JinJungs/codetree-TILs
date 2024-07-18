@@ -13,6 +13,7 @@ dir_index = 3 # north
 for command in input():
     if command == 'F':
         x += dx[dir_index]
+        y += dy[dir_index]
     elif command == 'L':
         dir_index = dir_index-1 if dir_index > 0 else 3
     elif command == 'R':
