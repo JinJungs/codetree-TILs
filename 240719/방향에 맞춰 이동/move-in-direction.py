@@ -15,4 +15,4 @@ for _ in range(n):
             y += dy[i] * int(distance)
             break
 
-print(str(x) + ' ' + str(y))
+print(x,y)
