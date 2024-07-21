@@ -3,7 +3,7 @@ import sys
 n = int(input())
 li = []
 
-for _ in range(9):
+for _ in range(n):
     commands = list(input().split())
     command = commands[0]
     if len(commands) == 2:
