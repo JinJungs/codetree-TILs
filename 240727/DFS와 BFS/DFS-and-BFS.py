@@ -2,7 +2,7 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-n, m, v = map(int, input().split())
+n, m, start = map(int, input().split())
 graph = [[] for _ in range(n+1)]
 
 for _ in range(m):
@@ -32,6 +32,6 @@ def bfs(graph, start, visited):
                 queue.append(i)
                 visited[i] = True
 
-dfs(graph, 1, [False] * (n+1))
+dfs(graph, start, [False] * (n+1))
 print('')
-bfs(graph, 1, [False] * (n+1))
+bfs(graph, start, [False] * (n+1))
