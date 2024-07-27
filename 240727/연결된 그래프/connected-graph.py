@@ -23,9 +23,5 @@ visited = [False] * (n+1)
 dfs(graph, 1, visited)
 
 # 1번 노드를 제외하고 방문한 노드의 개수 출력
-count = 0
-for v in visited:
-    if v:
-        count += 1
-
+count = sum(visited)
 print(count - 1)
