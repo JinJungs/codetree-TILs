@@ -5,7 +5,7 @@ input = sys.stdin.readline
 s = int(input())
 
 def bfs(len_init):
-    q = deque([(len_init, len_init)])
+    q = deque([[len_init, len_init]])
 
     result = 1
     while q:
