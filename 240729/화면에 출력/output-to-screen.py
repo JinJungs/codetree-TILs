@@ -28,4 +28,7 @@ def bfs(len_init):
 
     return 0
 
-print(bfs(1))
+if s == 1:
+    print(1)
+else:
+    print(bfs(1))
