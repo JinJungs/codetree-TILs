@@ -28,24 +28,27 @@ def bfs(grid, fsx, fsy, visited):
     queue = deque([(fsx, fsy)])
     visited[fsx][fsy] = True
 
-    result = 0
+    distance = 0
     while queue:
-        x, y = queue.popleft()
-        # print(x, y)
+        # queue 사이즈를 체크 - 큐의 사이즈는 변하므로 따로 변수로 빼기
+        sz = len(queue)
+        for z in range(sz):
+            x, y = queue.popleft()
+            # print(x, y)
+            if x == n-1 and y == m-1:
+                break
 
-        if x == n-1 and y == m-1:
-            break
+            # 인접한 좌표를 방문처리
+            for nx,ny in near(grid, x, y):
+                if not visited[nx][ny]:
+                    queue.append((nx,ny))
+                    visited[nx][ny] = True    
 
-        result += 1
+        # 큐 사이즈만큼 돌고나면 거리 + 1
+        distance += 1
 
-        # 인접하면서 1인 좌표를 for문
-        for nx,ny in near(grid, x, y):
-            if not visited[nx][ny]:
-                queue.append((nx,ny))
-                visited[nx][ny] = True    
-
-    return result
+    return distance
 
 # bfs 시작
 result = bfs(grid, 0, 0, visited)
-print(result-1)
+print(result)
