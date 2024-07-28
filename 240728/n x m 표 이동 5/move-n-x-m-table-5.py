@@ -28,7 +28,7 @@ def bfs(grid, fsx, fsy, visited):
     queue = deque([(fsx, fsy)])
     visited[fsx][fsy] = True
 
-    distance = 0
+    distance = 1
     while queue:
         # queue 사이즈를 체크 - 큐의 사이즈는 변하므로 따로 변수로 빼기
         sz = len(queue)
@@ -37,7 +37,6 @@ def bfs(grid, fsx, fsy, visited):
             # print(x, y)
             if x == n-1 and y == m-1:
                 return distance
-                break
 
             # 인접한 좌표를 방문처리
             for nx,ny in near(grid, x, y):
