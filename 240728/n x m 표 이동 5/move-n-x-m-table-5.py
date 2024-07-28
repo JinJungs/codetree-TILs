@@ -36,6 +36,7 @@ def bfs(grid, fsx, fsy, visited):
             x, y = queue.popleft()
             # print(x, y)
             if x == n-1 and y == m-1:
+                return distance
                 break
 
             # 인접한 좌표를 방문처리
@@ -47,7 +48,7 @@ def bfs(grid, fsx, fsy, visited):
         # 큐 사이즈만큼 돌고나면 거리 + 1
         distance += 1
 
-    return distance
+    return 0
 
 # bfs 시작
 result = bfs(grid, 0, 0, visited)
