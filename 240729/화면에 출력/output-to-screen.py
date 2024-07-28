@@ -3,45 +3,43 @@ from collections import deque
 input = sys.stdin.readline
 
 s = int(input())
-visited = [False] * (1001)
 
-def move_list(screen, clipboard):
-    l = []
-    # paste character in clipboard to screen
-    if in_range(screen + clipboard, clipboard):
-        l.append((screen + clipboard, clipboard))
-
-    # delete one character in screen
-    if in_range(screen -1, clipboard):
-        l.append((screen - 1, clipboard))
-
-    # copy all characters in screen to clipboard
-    if in_range(screen, screen):
-        l.append((screen, screen))
-
-    return l
-
-def in_range(screen, clipboard) -> bool :
-    return screen > 0 and screen <= 1000 and clipboard > 0 and clipboard <= 1000
+def in_range(screen) -> bool :
+    return screen > 0 and screen <= s
 
 def bfs(len_init :int) -> int:
-    q = deque([(len_init, len_init)])
+    q = deque([(len_init, 0)]) # (screen, clipboard)
+    visited = [[False] * (s + 1) for _ in range(s + 1)]
+    visited[len_init][0] = True
+    result = 0
 
-    result = 1
     while q:
-        sz = len(q)
-        for _ in range(sz):
+        for _ in range(len(q)):
             screen, clipboard = q.popleft()
             if screen == s:
                 return result
 
-            for ns,nc in move_list(screen, clipboard):
-                if ns == screen or not visited[ns]:
-                    q.append((ns,nc))
-                    visited[ns] = True
+            # 1. Copy all characters on the screen to the clipboard
+            if not visited[screen][screen]:
+                visited[screen][screen] = True
+                q.append((screen, screen))
+
+
+            # 2. Paste characters from the clipboard to the screen
+            if clipboard > 0 and in_range(screen + clipboard):
+                if not visited[screen + clipboard][clipboard]:
+                    visited[screen + clipboard][clipboard] = True
+                    q.append((screen + clipboard, clipboard))
+
+            # delete one character in screen
+            if in_range(screen - 1):
+                if not visited[screen - 1][clipboard]:
+                    visited[screen - 1][clipboard] = True
+                    q.append((screen - 1, clipboard))
+
 
         result += 1
 
-    return 0
+    return result
 
 print(bfs(1))
