@@ -3,9 +3,29 @@ from collections import deque
 input = sys.stdin.readline
 
 s = int(input())
+visited = [False] * (1001)
 
-def bfs(len_init):
-    q = deque([[len_init, len_init]])
+def move_list(screen, clipboard):
+    l = []
+    # paste character in clipboard to screen
+    if in_range(screen + clipboard, clipboard):
+        l.append((screen + clipboard, clipboard))
+
+    # delete one character in screen
+    if in_range(screen -1, clipboard):
+        l.append((screen - 1, clipboard))
+
+    # copy all characters in screen to clipboard
+    if in_range(screen, screen):
+        l.append((screen, screen))
+
+    return l
+
+def in_range(screen, clipboard) -> bool :
+    return screen > 0 and screen <= 1000 and clipboard > 0 and clipboard <= 1000
+
+def bfs(len_init :int) -> int:
+    q = deque([(len_init, len_init)])
 
     result = 1
     while q:
@@ -15,20 +35,13 @@ def bfs(len_init):
             if screen == s:
                 return result
 
-            # paste character in clipboard to screen
-            q.append((screen + clipboard, clipboard))
-
-            # delete one character in screen
-            q.append((screen - 1, clipboard))
-
-            # copy all characters in screen to clipboard
-            q.append((screen, screen))
+            for ns,nc in move_list(screen, clipboard):
+                if ns == screen or not visited[ns]:
+                    q.append((ns,nc))
+                    visited[ns] = True
 
         result += 1
 
     return 0
 
-if s == 1:
-    print(1)
-else:
-    print(bfs(1))
+print(bfs(1))
