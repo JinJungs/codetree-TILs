@@ -39,7 +39,7 @@ def loop_dfs(grid, visited) -> int:
     for x in range(n):
         for y in range(n):
             if not visited[x][y]:
-                dfs(grid, x, y, visited)
+                iterative_dfs(grid, x, y, visited)
                 region += 1
     return region
 
